@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlobalStudyBridge</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/6d9b27c7d4.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav>
+        <div class="logo">
+            🌍 GlobalStudyBridge
+        </div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#countries">Countries</a></li>
+            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="login.html" id="loginLink">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+        <div class="left">
+            <h1>
+                Your AI Companion<br>
+                For Studying Abroad
+            </h1>
+            <p>
+                Find Universities, Scholarships, Professors,
+                Research Papers and complete guidance
+                from admission to visa in one platform.
+            </p>
+            <div class="search">
+                <input type="text" placeholder="Search Country, University...">
+                <button id="searchBtn">Search</button>
+            </div>
+        </div>
+        <div class="right">
+            <div class="globe">🌎</div>
+        </div>
+    </section>
+
+    <!-- ================= FEATURES ================= -->
+    <section id="features">
+        <h2>Main Features</h2>
+        <div class="cards">
+            <div class="card">
+                🤖
+                <h3>AI University Finder</h3>
+            </div>
+            <div class="card">
+                🎓
+                <h3>Scholarship Finder</h3>
+            </div>
+            <div class="card">
+                👨‍🏫
+                <h3>Professor Finder</h3>
+            </div>
+            <div class="card">
+                📄
+                <h3>Research Papers</h3>
+            </div>
+            <div class="card">
+                🛂
+                <h3>Visa Guide</h3>
+            </div>
+            <div class="card">
+                🗺️
+                <h3>Country Information</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= COUNTRIES ================= -->
+    <section id="countries">
+        <h2>Popular Countries</h2>
+        <div class="country">
+            <div>🇩🇪 Germany</div>
+            <div>🇮🇹 Italy</div>
+            <div>🇨🇦 Canada</div>
+            <div>🇫🇮 Finland</div>
+            <div>🇦🇺 Australia</div>
+            <div>🇯🇵 Japan</div>
+        </div>
+    </section>
+
+    <!-- ================= ROADMAP ================= -->
+    <section id="roadmap">
+        <h2>Study Abroad Roadmap</h2>
+        <div class="steps">
+            <span>Dream</span>
+            ➜
+            <span>Country</span>
+            ➜
+            <span>IELTS</span>
+            ➜
+            <span>University</span>
+            ➜
+            <span>Scholarship</span>
+            ➜
+            <span>Apply</span>
+            ➜
+            <span>Visa</span>
+            ➜
+            <span>Fly ✈</span>
+        </div>
+    </section>
+
+    <!-- ================= FUTURE ================= -->
+    <section>
+        <h2>Future Features</h2>
+        <ul class="future">
+            <li>✅ Student Dashboard</li>
+            <li>✅ Login & Registration</li>
+            <li>✅ AI Chat Assistant</li>
+            <li>✅ AI SOP Generator</li>
+            <li>✅ AI CV Builder</li>
+            <li>✅ Professor Email Generator</li>
+            <li>✅ Community Forum</li>
+            <li>✅ Research Recommendation</li>
+        </ul>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <h2>GlobalStudyBridge</h2>
+        <p>Your Companion for Studying Abroad</p>
+        <p>© 2026 All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // ================= LOGIN STATUS CHECK =================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            const userData = localStorage.getItem('globalStudyBridgeUser') || 
+                             sessionStorage.getItem('globalStudyBridgeUser');
+            
+            const loginLink = document.getElementById('loginLink');
+            
+            if (userData && loginLink) {
+                const user = JSON.parse(userData);
+                
+                // Update the login link to show username
+                loginLink.innerHTML = `👤 ${user.name}`;
+                loginLink.href = '#';
+                loginLink.style.background = '#1e3c72';
+                loginLink.style.color = 'white';
+                loginLink.style.padding = '8px 20px';
+                loginLink.style.borderRadius = '50px';
+                loginLink.style.transition = 'all 0.3s';
+                
+                // Add logout functionality
+                loginLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    logout();
+                });
+                
+                // Add hover effect
+                loginLink.addEventListener('mouseenter', function() {
+                    this.style.background = '#c0392b';
+                    this.innerHTML = '🚪 Logout';
+                });
+                
+                loginLink.addEventListener('mouseleave', function() {
+                    this.style.background = '#1e3c72';
+                    this.innerHTML = `👤 ${user.name}`;
+                });
+                
+                // Show welcome message
+                showWelcomeMessage(user.name);
+            }
+            
+            // Logout function
+            function logout() {
+                if (confirm('Are you sure you want to logout?')) {
+                    // Clear all stored user data
+                    localStorage.removeItem('globalStudyBridgeUser');
+                    sessionStorage.removeItem('globalStudyBridgeUser');
+                    
+                    // Show logout message
+                    alert('You have been logged out successfully!');
+                    
+                    // Reload the page
+                    window.location.reload();
+                }
+            }
+            
+            // Welcome message function
+            function showWelcomeMessage(username) {
+                // Create welcome toast
+                const toast = document.createElement('div');
+                toast.style.cssText = `
+                    position: fixed;
+                    top: 100px;
+                    right: 20px;
+                    background: linear-gradient(135deg, #1e3c72, #2a5c8a);
+                    color: white;
+                    padding: 15px 25px;
+                    border-radius: 10px;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                    z-index: 1000;
+                    animation: slideInRight 0.5s ease-out;
+                    font-family: 'Poppins', sans-serif;
+                    max-width: 300px;
+                `;
+                
+                toast.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 24px;">👋</span>
+                        <div>
+                            <strong>Welcome back!</strong><br>
+                            <small>${username}</small>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(toast);
+                
+                // Remove toast after 3 seconds
+                setTimeout(() => {
+                    toast.style.animation = 'slideOutRight 0.5s ease-out';
+                    setTimeout(() => {
+                        document.body.removeChild(toast);
+                    }, 500);
+                }, 3000);
+            }
+            
+            // Add animation styles
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideInRight {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+                
+                @keyframes slideOutRight {
+                    from {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                    to {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                }
+                
+                #loginLink {
+                    position: relative;
+                    overflow: hidden;
+                }
+                
+                #loginLink::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+                    transition: left 0.5s;
+                }
+                
+                #loginLink:hover::before {
+                    left: 100%;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Search functionality
+            const searchBtn = document.getElementById('searchBtn');
+            const searchInput = document.querySelector('.search input');
+            
+            if (searchBtn && searchInput) {
+                searchBtn.addEventListener('click', function() {
+                    performSearch();
+                });
+                
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        performSearch();
+                    }
+                });
+            }
+            
+            function performSearch() {
+                const query = searchInput.value.trim();
+                if (query) {
+                    // Check if user is logged in
+                    const isLoggedIn = localStorage.getItem('globalStudyBridgeUser') || 
+                                      sessionStorage.getItem('globalStudyBridgeUser');
+                    
+                    if (isLoggedIn) {
+                        alert(`Searching for: "${query}"\n\nAs a logged-in user, you have access to personalized results!`);
+                    } else {
+                        alert(`Searching for: "${query}"\n\nLogin to get personalized recommendations and save your searches!`);
+                    }
+                } else {
+                    alert('Please enter a search term');
+                }
+            }
+            
+            // Add click effects to feature cards
+            document.querySelectorAll('.card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const featureName = this.querySelector('h3').textContent;
+                    const isLoggedIn = localStorage.getItem('globalStudyBridgeUser') || 
+                                      sessionStorage.getItem('globalStudyBridgeUser');
+                    
+                    if (isLoggedIn) {
+                        alert(`Opening ${featureName} feature...\nYou're logged in, so you can access all features!`);
+                    } else {
+                        alert(`${featureName} feature requires login.\nRedirecting to login page...`);
+                        window.location.href = 'login.html';
+                    }
+                });
+            });
+            
+            // Add click effects to country items
+            document.querySelectorAll('.country div').forEach(country => {
+                country.addEventListener('click', function() {
+                    const countryName = this.textContent.trim();
+                    const isLoggedIn = localStorage.getItem('globalStudyBridgeUser') || 
+                                      sessionStorage.getItem('globalStudyBridgeUser');
+                    
+                    if (isLoggedIn) {
+                        alert(`Exploring ${countryName}...\nYou can view detailed information about studying in ${countryName}!`);
+                    } else {
+                        alert(`Login to explore detailed information about studying in ${countryName}!`);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
